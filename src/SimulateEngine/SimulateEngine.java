@@ -1,14 +1,15 @@
-package SimulateEngine;
+ package SimulateEngine;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Vector;
 
+import Parameters.Parameters;
 import Task.Task;
 
 public class SimulateEngine {
 	
-	Parameters parameters = new Parameters();
+	Parameters parameters = new Parameters("/parameters/parameters_heuristics.txt");
 	
 	public int machines;
 	public int tasks;

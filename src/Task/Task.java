@@ -1,5 +1,8 @@
 package Task;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Task implements Comparable<Task>{
 
     public int tid;
@@ -9,9 +12,12 @@ public class Task implements Comparable<Task>{
 
     /*The time required to execute the task on the machine on which it has been scheduled*/
     float eTime;
+    
+    public List<Float> machineTimes;
 
     public Task(int task_id){
         tid=task_id;
+        machineTimes = new ArrayList<Float>();
     }
 
     public float get_cTime() {
@@ -29,6 +35,14 @@ public class Task implements Comparable<Task>{
     public void set_eTime(float eTime) {
         this.eTime = eTime;
     }
+    
+    public List<Float> getMachineTimes() {
+		return machineTimes;
+	}
+
+	public void setMachineTimes(float machineTime) {
+		this.machineTimes.add(machineTime);
+	}
 
 	@Override
 	public int compareTo(Task o) {
