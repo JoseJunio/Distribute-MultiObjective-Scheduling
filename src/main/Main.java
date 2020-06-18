@@ -8,7 +8,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		/*SimulateEngine simulateEngine = new SimulateEngine();
-		simulateEngine.simulate();*/
+		System.out.println(simulateEngine.execute());*/
 		
 		/*SimulateAG sag = new SimulateAG();
 		sag.e*/

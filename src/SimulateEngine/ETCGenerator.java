@@ -21,7 +21,6 @@ public class ETCGenerator {
     	etc = new float[tasks][machines];
      
     	try {
-			
 			//File file = new File("/Users/josejunio/Documents/Mestrado/Distribute-MultiObjective-Scheduling/hscp_instances/u_c_hihi.txt");\
 			File file = new File(fileName);
 			FileReader fileReader = new FileReader(file);
@@ -38,7 +37,7 @@ public class ETCGenerator {
 				  
 				  etc[task][machine] = executionTime;
 				  
-				  System.out.println("[" + task + "][" + machine + "] = " + executionTime);
+				  //System.out.println("[" + task + "][" + machine + "] = " + executionTime);
 				  
 				  if(machine == (machines-1)) {
 					 machine = 0;  
@@ -55,13 +54,11 @@ public class ETCGenerator {
     }
 	
 	public float[][] getETC(){
-		
 		if(etc == null) {
 			generateETC();
 		}
 		
         return etc;
     }
-	
 	
 }

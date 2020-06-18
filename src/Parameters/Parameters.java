@@ -20,11 +20,11 @@ public class Parameters {
     private int operCrossover; 
     private int operMutation; 
     private int numExecution;
+    private int numIteration;
     
-
     public Parameters(String path) {
     	
-    	String pathFile = System.getProperty("user.dir") + path;//"/parameters/parameters_heuristics.txt";
+    	String pathFile = System.getProperty("user.dir") + path;
     	
     	File file = new File(pathFile);
 		FileReader fileReader;
@@ -75,6 +75,9 @@ public class Parameters {
 				 			break;
 				 		case 9: 
 				 			numExecution = Integer.parseInt(m.group(1));
+				 			break;
+				 		case 10: 
+				 			numIteration = Integer.parseInt(m.group(1));
 				 			break;
 					}
 					count++;
@@ -166,5 +169,13 @@ public class Parameters {
 	public void setNumExecution(int numExecution) {
 		this.numExecution = numExecution;
 	}
-    
+
+	public int getNumIteration() {
+		return numIteration;
+	}
+
+	public void setNumIteration(int numIteration) {
+		this.numIteration = numIteration;
+	}
+	
 }

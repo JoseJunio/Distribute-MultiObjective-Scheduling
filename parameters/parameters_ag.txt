@@ -1,10 +1,11 @@
 NUM_MACHINES = 16
 NUM_TASKS = 512
-file = /Users/josejunio/Documents/Mestrado/multiobjective_genetic_algorithm-master/python/tests/c_HH.txt
-populationMaskespan = 30
-percMutation = 3
-percCrossover = 3
-percElitism = 3
-operCrossover = 1
+file = /Users/josejunio/Documents/Mestrado/Distribute_MultiObjective_Scheduling/hscp_instances/u_c_hihi.txt
+populationMaskespan = 60
+percMutation = 5
+percCrossover = 80
+percElitism = 10
+operCrossover = 2
 operMutation = 1
 numExecution = 1
+numIteration = 1000

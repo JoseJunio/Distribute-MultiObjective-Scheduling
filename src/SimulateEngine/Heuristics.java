@@ -3,12 +3,15 @@ package SimulateEngine;
 import java.util.Iterator;
 import java.util.Vector;
 
+import SimulateAG.Individual;
 import Task.Task;
 
 public class Heuristics {
 	
-	public static void schedule_MinMin(Vector<Task> metaSet, SimulateEngine sim){
+	public static Individual schedule_MinMin(Vector<Task> metaSet, SimulateEngine sim){
 
+		Individual ind = new Individual(0);
+		
         /*We do not actually delete the task from the meta-set rather mark it as removed*/
         boolean[] isRemoved=new boolean[metaSet.size()];
 
@@ -34,6 +37,13 @@ public class Heuristics {
             }           
             Task t = metaSet.elementAt(taskNo);
             sim.mapTask(t, machine);
+            
+            System.out.println("task: " + t.tid + " machine: " + machine);
+            
+            ind.setGenotype(t.tid, machine);
+            
+            // newIndividual.setGenotype(t, machine);
+            // t posição do individuo
 
             /*Mark this task as removed*/
             tasksRemoved++;
@@ -59,8 +69,11 @@ public class Heuristics {
         	}
         }
         
-        System.out.println("MinMin: " + longerTime);
-        
+        //ind.setMakespan(longerTime);
+        // individuo.setMakespan(longerTime);
+        // return class Individual
+        //return longerTime;
+        return ind;
     }
 	
 	private static float[][] schedule_MinMinHelper(Vector<Task> metaSet, SimulateEngine sim){

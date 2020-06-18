@@ -12,17 +12,19 @@ import java.util.Random;
 
 import Utils.Utils;
 
-public class Population {
+public class Population_priority_queue {
 
 	public int size;
-	public LinkedList<Individual> individuals;
+	//public LinkedList<Individual> individuals;
+	public PriorityQueue<Individual> individuals;
 	public int generation;
 	public Individual bestIndividual;
 	public LinkedList<Individual> bestIndividuals;
 	
-	public Population(int size) {
+	public Population_priority_queue(int size) {
 		this.size = size;
-		this.individuals = new LinkedList<Individual>();
+		//this.individuals = new LinkedList<Individual>();
+		this.individuals = new PriorityQueue();
 		this.generation = 0;
 	}
 	
@@ -40,7 +42,7 @@ public class Population {
 			Individual newIndividual = Individual.generate(newPopulation.getGeneration(), tasks, machines);
 			
 			if(!newPopulation.is_duplicate(newIndividual)) {
-				newPopulation.getIndividuals().push(newIndividual);
+				newPopulation.individuals.add(newIndividual);
 			}
 			
 			newPopulation.setBestIndividual(newPopulation.getIndividuals().get(0));
@@ -102,29 +104,30 @@ public class Population {
 
 	public void insert_individual(Individual newIndividual) {
 		if(!is_duplicate(newIndividual)) {
-			this.individuals.push(newIndividual);
+			this.individuals.add(newIndividual);
 		}
 		/*Individual best = getIndividuals().get(0);
 		setBestIndividual(best);*/
 	}
 	
 	public void update_population(int elitismFactor) {
-		LinkedList<Individual> newPopulation = new LinkedList<Individual>();
+		//LinkedList<Individual> newPopulation = new LinkedList<Individual>();
+		PriorityQueue<Individual> newPopulation = new PriorityQueue();
 		
 		this.bestIndividuals = new LinkedList<Individual>();
 		
 		int nElitism = (int) (this.size * (elitismFactor / 100.0));
 		
 		for(int i=0; i < nElitism; i++) {
-			newPopulation.push(this.individuals.pop());
+			newPopulation.add(this.individuals.poll());
 		}
 		
 		for(int i=0; i < (this.size - nElitism); i++) {
 			Individual selectedIndividual = select_individual();
-			newPopulation.push(selectedIndividual);
+			newPopulation.add(selectedIndividual);
 		}
 		
-		for(int i = 0; i < nElitism; i++) {
+		/*for(int i = 0; i < nElitism; i++) {
 			float[] minAndIndex = Utils.getIndexAndMin(this.individuals);
 		
 			//if(minAndIndex[1] < this.individuals.get(i).getMakespan()) {
@@ -136,13 +139,11 @@ public class Population {
 				if(i == 0) {
 					setBestIndividual(newPopulation.get(0));
 				}
-			} else {
-				this.bestIndividuals.add(newPopulation.get(i));
 			}
 			
 			this.individuals.remove((int) minAndIndex[0]);
 			
-		}
+		}*/
 		
 		//Verificamos o menor makespan na coleção de individuos e setamos ele como o menor na posição 0
 		/*float minorMakespan = this.individuals.get(0).getMakespan();
@@ -166,15 +167,15 @@ public class Population {
 	}
 	
 	public Individual select_individual() {
-		int index = Utils.randInt(0, this.individuals.size() - 1);
-		return this.individuals.get(index);
+		int index = Utils.randInt(0, getIndividuals().size() - 1);
+		return getIndividuals().get(index);
 	}
 	
 	public float makespan_sum() {
 		float total_sum = 0;
 		
-		for(int i=0; i < this.individuals.size(); i++) {
-			total_sum += this.individuals.get(i).getMakespan();
+		for(int i=0; i < getIndividuals().size(); i++) {
+			total_sum += getIndividuals().get(i).getMakespan();
 		}
 		
 		return total_sum;
@@ -195,7 +196,7 @@ public class Population {
 		float average = average();
 
 		for(int i=0; i < this.individuals.size(); i++) {
-			 float makespan = this.individuals.get(i).getMakespan();
+			 float makespan = getIndividuals().get(i).getMakespan();
 			 sum += (float) Math.pow(makespan - average, 2);
 		}
 		
@@ -218,7 +219,16 @@ public class Population {
 	}
 
 	public LinkedList<Individual> getIndividuals() {
-		return (LinkedList<Individual>) individuals;
+		LinkedList<Individual> individuos = new LinkedList<Individual>();
+		
+		Object[] temp = this.individuals.toArray();
+		
+		for(int i=0; i < temp.length; i++){
+			Individual ind = (Individual) temp[i];
+			individuos.add(ind);
+		}
+		
+		return individuos;
 	}
 
 	public int getGeneration() {

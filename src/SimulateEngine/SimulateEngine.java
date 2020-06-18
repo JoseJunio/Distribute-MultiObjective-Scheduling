@@ -5,6 +5,7 @@ import java.util.PriorityQueue;
 import java.util.Vector;
 
 import Parameters.Parameters;
+import SimulateAG.Individual;
 import Task.Task;
 
 public class SimulateEngine {
@@ -31,7 +32,7 @@ public class SimulateEngine {
 		}
 	}
 	
-	public void simulate() {
+	public Individual execute() {
 		
 		ETCGenerator etcGenerator = new ETCGenerator(machines, tasks, parameters.getFileName());
 		
@@ -39,12 +40,10 @@ public class SimulateEngine {
 		
 		etc = etcGenerator.getETC();
 		
-		executeSimulate();
-		
+		return executeSimulate();
 	}
-
 	
-	public void executeSimulate() {
+	public Individual executeSimulate() {
 
 		Vector<Task> metaSet = new Vector<Task>(tasks);
 		
@@ -53,14 +52,14 @@ public class SimulateEngine {
 		   metaSet.add(k);
 		}
 		
-		System.out.println("Início da execução");
+		//System.out.println("Início da execução");
 		
-		Heuristics.schedule_MinMin(metaSet, getInstance());
+		//float result = Heuristics.schedule_MinMin(metaSet, getInstance());
+		Individual ind = Heuristics.schedule_MinMin(metaSet, getInstance());
 		
-		System.out.println("Termino da execução");
-		
+		//System.out.println("Termino da execução");
+		return ind;
 	}
-	
 	
 	public void mapTask(Task t, int machine){
         t.set_eTime(etc[t.tid][machine]);
@@ -72,5 +71,4 @@ public class SimulateEngine {
 	public SimulateEngine getInstance() {
 		return this;
 	}
-	
 }
